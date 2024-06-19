@@ -71,7 +71,7 @@ function getDetailedBody(
                 const type = dependency.type;
                 const requestedVersion = dependency.requestedVersion ?? '';
                 const resolvedVersion = dependency.resolvedVersion;
-                const deprecationReason = (dependency.deprecationReasons ?? []).join(', ')
+                const deprecationReason = (dependency.deprecationReasons ?? []).join(', ');
                 const alternativePackageId = dependency.alternativePackage.id;
                 const alternativePackageVersionRange = dependency.alternativePackage.versionRange;
                 markdown += `| ${id} | ${type} | ${requestedVersion} | ${resolvedVersion} | ${deprecationReason} | ${alternativePackageId} | ${alternativePackageVersionRange} |\n`;
