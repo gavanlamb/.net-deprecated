@@ -45,7 +45,7 @@ describe("createCheckRun", () => {
         [CheckConclusion.Success, true, false],
         [CheckConclusion.Success, false, true],
         [CheckConclusion.Success, false, false]
-    ])("should create a check run with conclusion equal to %s when fail-check-run-if-contains-deprecated is %s and hasAny is %s", async (conclusion, failCheckRunIfContainsVulnerable, hasAny) => {
+    ])("should create a check run with conclusion equal to %s when fail-check-run-if-contains-deprecated is %s and hasAny is %s", async (conclusion, failCheckRunIfContainsDeprecated, hasAny) => {
         const detailedBody = "detailed";
         const summaryBody = "summary";
         const name = "name";
@@ -60,7 +60,7 @@ describe("createCheckRun", () => {
 
         const getBooleanInputMock = jest.fn();
         when(getBooleanInputMock).calledWith('add-check-run', false).mockReturnValueOnce(true);
-        when(getBooleanInputMock).calledWith('fail-check-run-if-contains-deprecated', false).mockReturnValueOnce(failCheckRunIfContainsVulnerable);
+        when(getBooleanInputMock).calledWith('fail-check-run-if-contains-deprecated', false).mockReturnValueOnce(failCheckRunIfContainsDeprecated);
         const getStringInputMock = jest.fn();
         when(getStringInputMock).calledWith('check-run-name').mockImplementationOnce(() => name);
         jest.doMock("../../src/helpers/inputHelper", () => ({ getBooleanInput: getBooleanInputMock, getStringInput: getStringInputMock }));
@@ -92,7 +92,7 @@ describe("createCheckRun", () => {
 
     test.each([
         ["name", "name"],
-        [".Net Vulnerable", null]
+        [".Net Deprecated", null]
     ])("should create a check run with a name of %s when the check-run-name is %s", async (expectedName: string, name: string | null) => {
         const detailedBody = "detailed";
         const summaryBody = "summary";
@@ -142,7 +142,7 @@ describe("createCheckRun", () => {
         const detailedBody = "detailed";
         const summaryBody = "summary";
         const conclusion = CheckConclusion.Success;
-        const name = ".Net Vulnerable";
+        const name = ".Net Deprecated";
         const owner = "owner";
         const repo = "repo";
         const sha = "sha";
@@ -188,7 +188,7 @@ describe("createCheckRun", () => {
         const detailedBody = "detailed";
         const summaryBody = "summary";
         const conclusion = CheckConclusion.Success;
-        const name = ".Net Vulnerable";
+        const name = ".Net Deprecated";
         const owner = "owner";
         const repo = "repo";
         const sha = "sha";
@@ -360,7 +360,7 @@ describe("addComment", () => {
                 id: commentId,
                 node_id: "1242342",
                 url: "",
-                body:`${messageId}\n\n# .Net Vulnerable`,
+                body:`${messageId}\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -376,7 +376,7 @@ describe("addComment", () => {
                 id: 5,
                 node_id: "1242342",
                 url: "",
-                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Vulnerable`,
+                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -443,7 +443,7 @@ describe("addComment", () => {
                 id: commentId,
                 node_id: "1242342",
                 url: "",
-                body:`${messageId}\n\n# .Net Vulnerable`,
+                body:`${messageId}\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -459,7 +459,7 @@ describe("addComment", () => {
                 id: 5,
                 node_id: "1242342",
                 url: "",
-                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Vulnerable`,
+                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -526,7 +526,7 @@ describe("addComment", () => {
                 id: commentId,
                 node_id: "1242342",
                 url: "",
-                body:`${messageId}\n\n# .Net Vulnerable`,
+                body:`${messageId}\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -542,7 +542,7 @@ describe("addComment", () => {
                 id: 5,
                 node_id: "1242342",
                 url: "",
-                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Vulnerable`,
+                body:`<!-- .net-deprecated-comment:5467546785 -->\n\n# .Net Deprecated`,
                 body_text: undefined,
                 body_html: undefined,
                 html_url: "",
@@ -574,7 +574,7 @@ describe("addComment", () => {
         expect(debugMock).toHaveBeenCalledWith(`Found comment for ${messageId}. Comment ID is: ${commentId}`);
         expect(debugMock).toHaveBeenCalledWith(`commentId: ${commentId}`);
         expect(updateCommentMock).toHaveBeenCalledTimes(1);
-        expect(updateCommentMock).toHaveBeenCalledWith(owner, repo, commentId, `${messageId}\n\n# .Net Vulnerable\n\n${body}`);
+        expect(updateCommentMock).toHaveBeenCalledWith(owner, repo, commentId, `${messageId}\n\n# .Net Deprecated\n\n${body}`);
         expect(debugMock).toHaveBeenCalledWith('Comment updated successfully');
     });
 
@@ -621,7 +621,7 @@ describe("addComment", () => {
         expect(debugMock).toHaveBeenCalledWith(`commentId: ${null}`);
         expect(debugMock).toHaveBeenCalledWith(`No comment found for ${messageId}`);
         expect(createCommentMock).toHaveBeenCalledTimes(1);
-        expect(createCommentMock).toHaveBeenCalledWith(owner, repo, issueNumber, `${messageId}\n\n# .Net Vulnerable\n\n${body}`);
+        expect(createCommentMock).toHaveBeenCalledWith(owner, repo, issueNumber, `${messageId}\n\n# .Net Deprecated\n\n${body}`);
         expect(debugMock).toHaveBeenCalledWith('Comment added successfully');
     });
 

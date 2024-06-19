@@ -78,7 +78,7 @@ async function createCheckRun(
         }
         info("Creating a check run...");
 
-        const addFailCheckIfContainsVulnerableArgument = getBooleanInput('fail-check-run-if-contains-deprecated', false);
+        const addFailCheckIfContainsDeprecatedArgument = getBooleanInput('fail-check-run-if-contains-deprecated', false);
 
         const owner  = context.repo.owner;
         debug(`owner: ${owner}`);
@@ -86,7 +86,7 @@ async function createCheckRun(
         const repo  = context.repo.repo;
         debug(`repo: ${repo}`);
 
-        const name = getStringInput('check-run-name') ?? '.Net Vulnerable';
+        const name = getStringInput('check-run-name') ?? '.Net Deprecated';
         debug(`name: ${name}`);
 
         const headSha = context.payload.pull_request?.head.sha ?? context.sha;
@@ -95,7 +95,7 @@ async function createCheckRun(
         const status = CheckRunStatus.Completed;
         debug(`status: ${status}`);
 
-        const conclusion = hasAny && addFailCheckIfContainsVulnerableArgument ? CheckConclusion.Failure : CheckConclusion.Success;
+        const conclusion = hasAny && addFailCheckIfContainsDeprecatedArgument ? CheckConclusion.Failure : CheckConclusion.Success;
         debug(`conclusion: ${conclusion}`);
 
         await createCheck(
@@ -177,7 +177,7 @@ async function addComment(
                     owner,
                     repo,
                     commentId,
-                    `${messageId}\n\n# .Net Vulnerable\n\n${body}`);
+                    `${messageId}\n\n# .Net Deprecated\n\n${body}`);
                 debug('Comment updated successfully');
             }
         }
@@ -188,7 +188,7 @@ async function addComment(
                     owner,
                     repo,
                     issueNumber,
-                    `${messageId}\n\n# .Net Vulnerable\n\n${body}`);
+                    `${messageId}\n\n# .Net Deprecated\n\n${body}`);
                 debug('Comment added successfully');
             } else {
                 debug('Comment is null or empty, no action taken');

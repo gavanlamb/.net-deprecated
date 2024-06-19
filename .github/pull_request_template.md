@@ -1,6 +1,6 @@
 # GH-{{ISSUE_IDENTIFIER}} - {{ISSUE_TITLE}}
 
-![Pipeline](https://github.com/gavanlamb/dotnet-vulnerable/actions/workflows/preview.yml/badge.svg?event=pull_request&branch={{BRANCH_NAME}})
+![Pipeline](https://github.com/gavanlamb/dotnet-deprecated/actions/workflows/preview.yml/badge.svg?event=pull_request&branch={{BRANCH_NAME}})
 
 ## Description
 * 
